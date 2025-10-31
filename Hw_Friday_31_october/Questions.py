@@ -188,3 +188,93 @@ try:
 
 except FileNotFoundError:
     print("File not found")
+
+########################################################
+ # Question
+########################################################
+
+
+def clean_file_spaces(input_file="notes.txt", output_file="notes_clean.txt"):
+    try:
+        with open(input_file, "r", encoding="utf-8") as fin:
+            lines = fin.readlines()
+
+        cleaned_lines = []
+        for line in lines:
+
+            words = line.strip().split()
+            if words:  # skip empty lines
+                cleaned_lines.append(" ".join(words))
+
+        with open(output_file, "w", encoding="utf-8") as fout:
+            fout.write("\n".join(cleaned_lines))
+
+        print(f"Cleaned text written to '{output_file}'")
+
+    except FileNotFoundError:
+        print(f"File '{input_file}' not found!")
+
+
+# Run
+clean_file_spaces()
+
+########################################################
+ # Question
+########################################################
+
+import json
+
+# from pprint import pprint
+
+dic = {
+    "Ebrahim": {
+        "name": "Ebrahim",
+        "age": 32,
+        "city": "Tehtran",
+        "email": "Ebrahim@mail.com",
+    },
+    "Ali": {
+        "name": "Ali",
+        "age": 30,
+        "city": "Shiraz",
+        "email": "Ali@mail.com",
+    }
+}
+
+with open("notes1.txt", "w", encoding="utf-8") as file:
+    json.dump(dic, file, indent=4)
+
+with open("notes1.txt", "r") as file:
+    loaded = json.load(file)
+    # pprint(loaded)
+
+for k, v in loaded.items():
+    print(k, ":", v)
+
+
+########################################################
+ # Question 28
+########################################################
+
+with open("notes1.txt", "r+", encoding="utf-8") as file:
+    json.dump(dic, file, indent=4)
+    file.seek(0)
+    loaded = json.load(file)
+    pprint(loaded)
+
+for k, v in loaded.items():
+    print(k, ":", v)
+
+
+########################################################
+ # Question 30
+########################################################
+
+
+with open("users.json", "r") as file:
+    loaded = json.load(file)
+
+for k, v in loaded.items():
+    age = v.get("age")
+    if age > 20:
+        print("name: ", k)
